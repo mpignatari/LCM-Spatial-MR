@@ -27,7 +27,7 @@ LCM-Spatial-MR/
   paper/
     Chap_3_24_paper.pdf
   data/        (NOT included)
-  output/      (NOT included)
+  output/      (NOT included)```
 
 
 ---
@@ -80,6 +80,7 @@ https://github.com/mpignatari/LCM-Spatial-MR
 ## License
 
 No license specified yet. If you want others to reuse code easily, consider adding an MIT License.
+
 
 
 
