@@ -1,0 +1,11 @@
+data/
+output/
+*.csv
+*.xlsx
+
+.Rhistory
+.RData
+.Rproj.user/
+
+.DS_Store
+Thumbs.db

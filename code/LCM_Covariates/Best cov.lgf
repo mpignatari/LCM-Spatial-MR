@@ -1,0 +1,33 @@
+ data ='C:\Users\A02369659\Documents\12-2020\Marine Project\New Data\CE_rec2_factorsc_exclall3_tt.csv' delim = comma quote = double;
+
+model:'Best cov'  choice 5 /
+  maxthreads=8  toler=1e-08  tolem=0.01  tolran=1e-05  bayes=1  bayess2=1  bayeslat=1
+  bayespoi=1
+  iterem=250  iternr=50  itersv=50
+  iterboot=500
+  setsboot=0
+  nseed=874528  nseedboot=98200
+  nrand=0
+  usemiss=No
+  sewald=yes  dummy=no
+ outsect=0x00001c97
+ betaopts="szwm"
+;
+casewgt wtgend;
+chdes = 1;
+dependent Y;
+replicate pid;
+chidv gid;
+chvar opt3 mr job carbon cost;
+price  cost ;
+chnum opt3 mr job carbon cost;
+covariate MR1 MR2 MR4 MR5 MR3 Total_TravelTime;
+attr Y ordinal  ;
+attr MR1 ordinal  ;
+attr MR2 ordinal  ;
+attr MR4 ordinal  ;
+attr MR5 ordinal  ;
+attr MR3 ordinal  ;
+attr Total_TravelTime ordinal  ;
+
+end;

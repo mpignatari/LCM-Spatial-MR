@@ -1,0 +1,31 @@
+Best cov
+options
+   maxthreads=8;
+   algorithm 
+      tolerance=1e-08 emtolerance=0.01 emiterations=250 nriterations=50 ;
+   startvalues
+      seed=0 sets=16 tolerance=1e-05 iterations=50;
+   bayes
+      categorical=1 variances=1 latent=1 poisson=1;
+   montecarlo
+      seed=0 sets=0 replicates=500 tolerance=1e-08;
+   quadrature  nodes=10;
+   missing  excludeall;
+   output      
+      parameters=effect  betaopts=szwl standarderrors profile profile=posterior
+      probmeans=posterior estimatedvalues=regression predictionstatistics
+      setprofile setprobmeans reorderclasses;
+choice = 1 ;
+variables
+   caseid pid;
+   choicesetid gid;
+   caseweight wtgend;
+   choicesetid gid ;
+   dependent Y choice;
+   independent MR1, MR2, MR4, MR5, MR3, Total_TravelTime;
+   attribute opt3, mr, job, carbon, cost price;
+   latent
+      Class nominal 5;
+equations
+   Class <- 1 + MR1 + MR2 + MR4 + MR5 + MR3 + Total_TravelTime;
+   Y <- opt3 | Class + mr | Class + job | Class + carbon | Class + cost | Class;
