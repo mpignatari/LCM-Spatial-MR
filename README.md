@@ -27,15 +27,14 @@ LCM-Spatial-MR/
   paper/
     Chap_3_24_paper.pdf
   data/        (NOT included)
-  output/      (NOT included)'''
+  output/      (NOT included)
 
----
-
-## Repository structure
 
 ---
 
 ## Requirements
+
+Latent GOLD
 
 R (recommended: R >= 4.2) and packages commonly used in the scripts, e.g.:
 - `sf`, `dplyr`, `tidyr`, `ggplot2`, `spdep`, `mgcv`, `readr`, `stringr`
@@ -81,5 +80,6 @@ https://github.com/mpignatari/LCM-Spatial-MR
 ## License
 
 No license specified yet. If you want others to reuse code easily, consider adding an MIT License.
+
 
 
