@@ -48,7 +48,7 @@ R (recommended: R >= 4.2) and packages commonly used in the scripts, e.g.:
    - `code/Factor_Analysis/Factor_analysis2.R`
    - `code/Spatial_Analysis/spatial_Moran_GAM_bi_fin!.R`
    - `code/Spatial_Analysis/spatial_Moran_GAM_classmemb_fin3.R`
-   - LCM covariate model: `code/LCM_Covariates/`
+   - LCM model: `code/LCM_Covariates/`
 
 Outputs should be saved to `output/` (not tracked).
 
@@ -81,6 +81,7 @@ https://github.com/mpignatari/LCM-Spatial-MR
 ## License
 
 No license specified yet. If you want others to reuse code easily, consider adding an MIT License.
+
 
 
 
