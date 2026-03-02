@@ -56,7 +56,7 @@ Outputs should be saved to `output/` (not tracked).
 
 ## Data access
 
-- If the dataset is restricted/non-public: email me to request access.
+- email me to request access.
 
 Contact: **mpignatari@usu.edu** (or **mpignatari@hotmail.com**)
 
@@ -78,9 +78,7 @@ https://github.com/mpignatari/LCM-Spatial-MR
 
 ---
 
-## License
 
-No license specified yet. If you want others to reuse code easily, consider adding an MIT License.
 
 
 
