@@ -107,7 +107,7 @@ library(sf); library(dplyr); library(ggplot2)
 # 1) Put ZIP polygons in a metric CRS
 zip_m   <- st_transform(zip_poly, 5070)      # put polygons in a metric CRS
 colnames(zip_m)
-zip_pts <- st_point_on_surface(zip_m["Zip5"])  # one point per ZIP. makes one point per polygon (so 429 points, one for each ZIP, placed inside the polygon). Now have a geometry for each ZIP. Your shapefile has some ZIPs that are multipart (same ZIP code broken into several polygons). When sf makes one point “on the surface” of each feature, it has to decide which attributes go with that point. It’s warning: “I’m assuming all parts of this feature have the same attributes.”
+zip_pts <- st_point_on_surface(zip_m["Zip5"])  # one point per ZIP. makes one point per polygon (so 429 points, one for each ZIP, placed inside the polygon). Now have a geometry for each ZIP. Shapefile has some ZIPs that are multipart (same ZIP code broken into several polygons). When sf makes one point “on the surface” of each feature, it has to decide which attributes go with that point. It’s warning: “I’m assuming all parts of this feature have the same attributes.”
 
 # 2) Match each person to their ZIP point (NO dplyr join on sf)
 idx <- match(as.character(people_keep$Zip5), zip_pts$Zip5) # Take each person’s ZIP (people_keep$Zip5) Find which ZIP point it corresponds to (match(...))
@@ -155,7 +155,7 @@ resp_m <- resp_m %>%
   mutate(across(all_of(coef_cols), numify))
 
 # Name them as in the paper (Figure 5 / Table 8 / Table 9)
-# IMPORTANT: if your order differs, fix it here
+# IMPORTANT: if order differs, fix it here
 attr_names <- c("SQ", "MRS", "Job", "Carbon", "Cost")
 names_map  <- setNames(attr_names, coef_cols)
 
@@ -300,7 +300,7 @@ pred_mat <- sapply(mods, function(m) predict(m, newdata = newdat, type = "respon
 pred_df  <- as.data.frame(pred_mat)
 pred_sf  <- cbind(grid_poly, pred_df)
 
-# If you want ONE common scale across facets, standardize to z-scores:
+# If want ONE common scale across facets, standardize to z-scores:
 pred_z <- as.data.frame(scale(pred_df))
 names(pred_z) <- paste0("z_", names(pred_z))
 pred_sf_z <- cbind(grid_poly, pred_z)
