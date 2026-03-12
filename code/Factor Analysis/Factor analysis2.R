@@ -15,7 +15,7 @@ sapply(df_reduced1[, vars], is.ordered)
 
 
 ## 1.  Tell mice that *every* variable is ordinal
-df_reduced1 <- df_reduced %>%                                     # keep other cols intact if you want
+df_reduced1 <- df_reduced %>%                                     # keep other cols intact if want
   mutate(across(all_of(vars), ~ ordered(.)))                  # 1 < 2 < … < 7
 
 sapply(df_reduced1[, vars], is.ordered)
@@ -86,7 +86,7 @@ fa_result$rms
 partial_corr <- residuals(fa_result, type = "partial")
 round(partial_corr, 4)
 
-# Assuming your dataset is called `frailty`
+# Assuming dataset is called `frailty`
 alpha(df_reduced[, c("Clim_1","Clim_2","Clim_3","Clim_5","Clim_6")],check.keys = TRUE)
 alpha(df_reduced[, c("TR_1","TR_2","TR_3","TR_4","TR_5")])
 alpha(df_reduced[, c("Rel_1","Rel_2","Rel_3","Rel_5","Rel_6","Schw_3")])
@@ -128,7 +128,7 @@ print(fa_result$loadings, cutoff = 0.3)
 df_reduced1<-read.csv("C:/Users/A02369659/Documents/12-2020/Marine Project/New Data/factor.csv")
 
 # Step 3: Calculate Factor Scores (like PROC SCORE)
-# If you want to compute factor scores for individuals:
+# If want to compute factor scores for individuals:
 scores <- factor.scores(df_reduced[,vars], fa_result, method = "regression")$scores
 nrow(scores)
 
@@ -221,7 +221,7 @@ print(fa_result$loadings, cutoff = 0.5)
 df_reduced1<-read.csv("C:/Users/A02369659/Documents/12-2020/Marine Project/New Data/factor.csv")
 
 # Step 3: Calculate Factor Scores (like PROC SCORE)
-# If you want to compute factor scores for individuals:
+# If want to compute factor scores for individuals:
 scores <- factor.scores(df_reduced[,vars], fa_result, method = "Bartlett")$scores
 nrow(scores)
 
@@ -349,13 +349,13 @@ nrow(df_reduced[, vars])
 
 
 ##GPT
-#⚙️ Why Your Factor Analysis Results Changed
+#⚙️ Why Factor Analysis Results Changed
 #1. mice() uses random draws when imputing NAs
-#When you ran:
+#When ran:
 
-#df_reduced <- complete(mice(df_reduced[, vars], method = "polr", m = 5))each run generated slightly different imputed values for your missing data, because:The mice() algorithm draws random samples from predictive distributions.Those random draws affect the correlation matrix used in fa().Even tiny differences in correlations will slightly change loadings, communalities (h2, u2), and fit indices (TLI, RMSEA, etc.).This is why you cannot reproduce the exact same factor loadings unless you control the random seed.
+#df_reduced <- complete(mice(df_reduced[, vars], method = "polr", m = 5))each run generated slightly different imputed values for missing data, because:The mice() algorithm draws random samples from predictive distributions.Those random draws affect the correlation matrix used in fa().Even tiny differences in correlations will slightly change loadings, communalities (h2, u2), and fit indices (TLI, RMSEA, etc.).This is why cannot reproduce the exact same factor loadings unless control the random seed.
 
-#2. Your models differ only due to random imputation variationCompare the two results:
+#2. Models differ only due to random imputation variationCompare the two results:
 
 #  Metric	Old	New	Difference
 #Clim_1 loading	0.93	0.91	minimal
