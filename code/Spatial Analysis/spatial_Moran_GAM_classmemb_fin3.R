@@ -122,7 +122,8 @@ make_knn_connected <- function(coords, k_start = 4, k_max = 30) {
   lw
 }
 
-# try k-nearest neighbors with k = 4; check if the neighbor graph is fully connected (n.comp.nb(...) == 1); if not, increase k → 5 → 6 → … until it becomes one connected graph or you hit k_max; convert to a spatial weights list (nb2listw); tag the object with the k actually used.
+# try k-nearest neighbors with k = 4; check if the neighbor graph is fully connected (n.comp.nb(...) == 1); if not, increase k → 5 → 6 → … until it becomes one connected graph or 
+hit k_max; convert to a spatial weights list (nb2listw); tag the object with the k actually used.
 
 lw_full <- make_knn_connected(coords, k_start = 6)
 #started at 6, and it told tells that “neighbor object has 3 sub-graphs”, so it kept increasing until it found a k that connects everything (it ended with k = 8 in the Moran’s output). knn not fully connected when k =6. 3 separate islands (sub-graphs). But the helper keeps increasing N and fixed this with knn=8.
@@ -204,7 +205,7 @@ moran_tbl_analytical <- function(sfpoints, prob_cols, listw) {
 
 
 # I already have these:
-# resp_w  <- ...  (your jittered points)
+# resp_w  <- ...  (jittered points)
 # prob_cols <- grep("^p_cluc[_.]\\d+$", names(resp_w), value = TRUE)
 # lw_full <- make_knn_connected(...)
 
@@ -297,7 +298,7 @@ newdat    <- data.frame(x = gc[,1], y = gc[,2]) #the prediction dataset (one row
 #fit the GAMS
 fit_one <- function(col, k = 80) { #Defines a function that fits one surface for one class-prob column (e.g., p_cluc_1)
   fml <- as.formula(paste0(col, " ~ s(x, y, k = ", k, ")")) #join in one string. Builds a formula like: p_cluc_1 ~ s(x, y, k = 80) s(x,y) is a 2D smooth over space. k=80 is the basis dimension (upper bound on wiggliness / complexity).
-  m <- gam(fml, data = dat, family = quasibinomial(), method = "REML") # fits the model for that class.family = quasibinomial():uses a logit-type mean function but allows overdispersion (variance not forced to be exactly binomial). works when your “probabilities” aren’t literally 0/1 Bernoulli outcomes.chooses the smoothing penalty via REML
+  m <- gam(fml, data = dat, family = quasibinomial(), method = "REML") # fits the model for that class.family = quasibinomial():uses a logit-type mean function but allows overdispersion (variance not forced to be exactly binomial). works when “probabilities” aren’t literally 0/1 Bernoulli outcomes.chooses the smoothing penalty via REML
   p <- predict(m, newdata = newdat, type = "response") # Predicts at the grid centroids. type="response" returns predictions on the probability scale (0–1), not the linear predictor.
   pmin(pmax(p, 0), 1) #Clips any small numerical overshoots below 0 or above 1 back into [0,1]
 }
@@ -343,7 +344,7 @@ ggplot() +
   facet_wrap(~ class, ncol = 2)
 
 ## ============================================================
-## 6) DOMINANT MAP (style like your screenshot)
+## 6) DOMINANT MAP (style like screenshot)
 ## ============================================================
 # give id before pivot
 grid_poly_id <- grid_poly |>
@@ -361,7 +362,7 @@ dominant_norm <- surf_norm |>
   slice_max(prob, n = 1, with_ties = FALSE) |>
   ungroup()
 
-# same colors you liked
+# same colors
 dom_cols <- c(
   "class_1" = "red",
   "class_2" = "steelblue",
@@ -413,8 +414,8 @@ summ_tbl
 ##  B) INCREMENTAL TESTS (NULL vs SPATIAL)  — COEFFICIENTS
 ## ============================================================
 
-stopifnot(exists("mods"))              # your spatial GAMs list
-stopifnot(exists("coef_cols"))         # the columns you fit
+stopifnot(exists("mods"))              # spatial GAMs list
+stopifnot(exists("coef_cols"))         # the columns fit
 
 # pretty class labels like "Class 1", "Class 2", ...
 pretty_class <- function(nm) paste("Class", sub(".*_(\\d+)$", "\\1", nm))
@@ -458,7 +459,7 @@ inc_tbl <- do.call(rbind, Map(function(m0, m1, nm){
 # 4) Merge to final table
 final_tbl <- dplyr::left_join(summ_tbl, inc_tbl, by = "class")
 
-# Optional: format like your example (scientific for p-values)
+# Optional: format like example (scientific for p-values)
 fmt_e <- function(x) ifelse(is.na(x), NA, formatC(x, format = "e", digits = 2))
 final_tbl_out <- final_tbl |>
   dplyr::mutate(
